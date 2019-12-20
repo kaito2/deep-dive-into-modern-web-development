@@ -1,31 +1,48 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Hello = (props) => {
+const Header = (props) => {
     return (
-        <div>
-            <p>Hello {props.name}</p>
-        </div>
+        <h1>{props.cource}</h1>
     )
 }
 
-const Footer = () => {
+const Contents = (props) => {
+    return(
+        <p>
+            {props.pairs.map(pair => (<Content part={pair.part} exercises={pair.exercises} />))}
+        </p>
+    )
+}
+
+const Content = (props) => {
     return (
-        <div>
-            greeting app created by <a href="https://github.com/kaito2">kaito2</a>
-        </div>
+        <p>
+            {props.part} {props.exercises}
+        </p>
+    )
+}
+
+const Footer = (props) => {
+    console.log(props.pairs)
+    return (
+        props.pairs.reduce((sum, a) => sum + a.exercises, 0)
     )
 }
 
 const App = () => {
-    const name1 = "hoge"
+    const course = 'Half Stack application development'
+    const list = [
+        {"part": 'Fundamentals of React', "exercises": 10},
+        {"part": 'Using props to pass data', "exercises": 7},
+        {"part": 'State of a component', "exercises": 14},
+    ]
+
     return (
         <div>
-            <h1>Greeting!!!</h1>
-            <Hello name={name1} />
-            <Hello name="huga" />
-            <Hello name="piyo" />
-            <Footer />
+            <Header cource={course} />
+            <Contents  pairs={list} />
+            <Footer pairs={list} />
         </div>
     )
 }
