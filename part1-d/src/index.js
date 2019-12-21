@@ -31,15 +31,19 @@ const App = (props) => {
 
     const handleLeftClick = () => {
         const newClicks = {
+            // object spread syntax
+            // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+            ...clicks,
             left: clicks.left + 1,
-            right: clicks.right
         };
         setClicks(newClicks);
     }
 
     const handleRightClick = () => {
         const newClicks = {
-            left: clicks.left,
+            // object spread syntax
+            // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+            ...clicks,
             right: clicks.right + 1
         }
         setClicks(newClicks)
