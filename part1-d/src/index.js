@@ -24,6 +24,27 @@ const App = () => {
 }
 */
 
+const History = ({ allClicks }) => {
+    if (allClicks.length === 0) {
+        return (
+            <div>
+                This app is use by pressing the buttons.
+            </div>
+        )
+    }
+    return (
+        <div>
+            button press history: {allClicks.join(' ')}
+        </div>
+    )
+}
+
+const Button = ({ text, onClick }) => {
+    return (
+        <button onClick={onClick}>{text}</button>
+    )
+}
+
 const App = (props) => {
     const [clicks, setClicks] = useState({
         left: 0, right: 0
@@ -56,10 +77,10 @@ const App = (props) => {
         <div>
             <div>
                 {clicks.left}
-                <button onClick={handleLeftClick}>left</button>
-                <button onClick={handleRightClick}>right</button>
+                <Button text='left' onClick={handleLeftClick} />
+                <Button text='right' onClick={handleRightClick} />
                 {clicks.right}
-                <p>{allClicks.join(' ')}</p>
+                <History allClicks={allClicks} />
             </div>
         </div>
     )
