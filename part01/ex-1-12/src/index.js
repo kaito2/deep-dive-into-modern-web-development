@@ -4,6 +4,7 @@ import './index.css';
 
 const App = ({ anecdotes }) => {
     const [selected, setSelected] = useState(0)
+    const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
     const handleClickNext = () => {
         let next = selected + 1
@@ -13,9 +14,19 @@ const App = ({ anecdotes }) => {
         setSelected(next)
     }
 
+    const handleVote = () => {
+        // Change not reflected with below implementation.
+        // let copy = votes
+        let copy = [...votes]
+        copy[selected] = votes[selected] + 1
+        setVotes(copy)
+    }
+
     return (
         <div>
             <p>{anecdotes[selected]}</p>
+            <p>has {votes[selected]} votes</p>
+            <button onClick={handleVote}>vote</button>
             <button onClick={handleClickNext}>next anecdote</button>
         </div>
     )
