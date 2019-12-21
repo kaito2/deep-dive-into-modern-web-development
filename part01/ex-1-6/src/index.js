@@ -1,14 +1,50 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 
 const FeedbackStatistics = ({ feedback }) => {
+    if (getTotalFeedbackNum(feedback) === 0) {
+        return (
+            <div>No feedback given</div>
+        )
+    }
+
     return (
-        <div>
-            <p>good: {feedback.good}</p>
-            <p>neutral: {feedback.neutral}</p>
-            <p>bad: {feedback.bad}</p>
-        </div>
+        <table>
+            <tr>
+                <td>good</td>
+                <td>{feedback.good}</td>
+            </tr>
+            <tr>
+                <td>neutral</td>
+                <td>{feedback.neutral}</td>
+            </tr>
+            <tr>
+                <td>bad</td>
+                <td>{feedback.bad}</td>
+            </tr>
+            <tr>
+                <td>average</td>
+                <td>{calcFeedbackAve(feedback)}</td>
+            </tr>
+            <tr>
+                <td>positive</td>
+                <td>{calcPositiveFeedbackPercentage(feedback)} %</td>
+            </tr>
+        </table>
     )
+}
+
+function getTotalFeedbackNum(feedback) {
+    return feedback.good + feedback.neutral + feedback.bad
+}
+
+function calcFeedbackAve(feedback) {
+    return (feedback.good + feedback.bad * -1) / getTotalFeedbackNum(feedback)
+}
+
+function calcPositiveFeedbackPercentage(feedback) {
+    return feedback.good / getTotalFeedbackNum(feedback)
 }
 
 const Button = ({ text, onClick }) => {
