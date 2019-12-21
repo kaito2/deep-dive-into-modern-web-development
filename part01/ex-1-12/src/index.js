@@ -2,9 +2,35 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+const MostVotedAnecdotes = ({ anecdotes, votes }) => {
+    const totalVotes = votes.reduce((sum, vote) => sum + vote)
+
+    if ( totalVotes === 0 ) {
+        return (<div></div>)
+    }
+
+    let indexOfMaxVote = votes.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0)
+    return (
+        <div>
+            <h2>Anecdote with most votes</h2>
+            <Anecdote text={anecdotes[indexOfMaxVote]} voteNum={votes[indexOfMaxVote]} />
+        </div>
+    )
+}
+
+const Anecdote = ({ text, voteNum}) => {
+    return (
+        <div>
+            <p>{text}</p>
+            <p>has {voteNum} votes</p>
+        </div>
+    )
+}
+
 const App = ({ anecdotes }) => {
     const [selected, setSelected] = useState(0)
     const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
+    const [mostVotedNum, setMostVotedNum] = useState(0)
 
     const handleClickNext = () => {
         let next = selected + 1
@@ -24,10 +50,11 @@ const App = ({ anecdotes }) => {
 
     return (
         <div>
-            <p>{anecdotes[selected]}</p>
-            <p>has {votes[selected]} votes</p>
+            <h2>Anecdote of the day</h2>
+            <Anecdote text={anecdotes[selected]} voteNum={votes[selected]} />
             <button onClick={handleVote}>vote</button>
             <button onClick={handleClickNext}>next anecdote</button>
+            <MostVotedAnecdotes anecdotes={anecdotes} votes={votes} />
         </div>
     )
 }
