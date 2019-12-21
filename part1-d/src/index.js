@@ -28,8 +28,10 @@ const App = (props) => {
     const [clicks, setClicks] = useState({
         left: 0, right: 0
     })
+    const [allClicks, setAll] = useState([])
 
     const handleLeftClick = () => {
+        setAll(allClicks.concat('L'))
         const newClicks = {
             // object spread syntax
             // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
@@ -40,6 +42,7 @@ const App = (props) => {
     }
 
     const handleRightClick = () => {
+        setAll(allClicks.concat('R'))
         const newClicks = {
             // object spread syntax
             // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
@@ -56,6 +59,7 @@ const App = (props) => {
                 <button onClick={handleLeftClick}>left</button>
                 <button onClick={handleRightClick}>right</button>
                 {clicks.right}
+                <p>{allClicks.join(' ')}</p>
             </div>
         </div>
     )
