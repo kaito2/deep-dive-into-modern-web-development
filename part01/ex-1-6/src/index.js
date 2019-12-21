@@ -1,34 +1,46 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const FeedbackStatistics = () => {
+const FeedbackStatistics = ({ feedback }) => {
     return (
         <div>
-            statistics
+            <p>good: {feedback.good}</p>
+            <p>neutral: {feedback.neutral}</p>
+            <p>bad: {feedback.bad}</p>
         </div>
     )
 }
 
-const FeedbackInput = () => {
+const Button = ({ text, onClick }) => {
     return (
-        <div>input</div>
+        <button onClick={onClick}>{text}</button>
+    )
+}
+
+const FeedbackInput = ({ feedback, setFeedback }) => {
+    return (
+        <div>
+            <h1>Give feedback</h1>
+            <Button text='good' onClick={() => setFeedback({...feedback, good: feedback.good + 1})} />
+            <Button text='neutral' onClick={() => setFeedback({...feedback, neutral: feedback.neutral + 1})} />
+            <Button text='bad' onClick={() => setFeedback({...feedback, bad: feedback.bad + 1})} />
+        </div>
     )
 }
 
 const Feedback = () => {
+    const [feedback, setFeedback] = useState({
+        good: 0, neutral: 0, bad: 0
+    });
     return (
         <div>
-            <FeedbackInput />
-            <FeedbackStatistics />
+            <FeedbackInput feedback={feedback} setFeedback={setFeedback} />
+            <FeedbackStatistics feedback={feedback} />
         </div>
     )
 }
 
 const App = () => {
-    const [good, setGood] = useState(0);
-    const [neutral, setNeutral] = useState(0);
-    const [bad, setBad] = useState(0);
-
     return (
         <div>
             <Feedback />
